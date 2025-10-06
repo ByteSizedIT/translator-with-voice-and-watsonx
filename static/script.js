@@ -153,7 +153,7 @@ const populateBotResponse = async (userMessage) => {
   await showBotLoadingAnimation();
   const response = await processUserMessage(userMessage);
   responses.push(response);
-  console.log(response)
+  console.log(response);
 
   const repeatButtonID = getRandomID();
   botRepeatButtonIDToIndexMap[repeatButtonID] = responses.length - 1;
