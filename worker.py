@@ -97,4 +97,37 @@ def speech_to_text(audio_binary):
 ###########
 
 def text_to_speech(text, voice=""):
-    return None
+    # Set up Watson Text-to-Speech HTTP Api url
+    # Remember to replace the ... for the base_url variable with the URL for your Text-to-Speech model (for example, https://sn-watson-tts.labs.skills.network that is available for user in the lab environment only).
+    base_url = '...'
+    api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
+
+    # Adding voice parameter in api_url if the user has selected a preferred voice
+    if voice != "" and voice != "default":
+        api_url += "&voice=" + voice
+
+    # Set the headers for our HTTP request
+    headers = {
+        'Accept': 'audio/wav',
+        'Content-Type': 'application/json',
+    }
+
+    # Set the body of our HTTP request
+    json_data = {
+        'text': text,
+    }
+
+    # Send a HTTP Post reqeust to Watson Text-to-Speech Service
+    response = requests.post(api_url, headers=headers, json=json_data)
+    '''
+    We then use the requests library to send this HTTP to request passing in the URL, headers, and json(body) to it and then use .json() to convert the API's response to json format so we can parse it.
+    The structure of the response is something like this:
+    {
+        "response": {
+                content: The Audio data for the processed Text-to-Speech
+            }
+        }
+    }
+    '''
+    print('Text-to-Speech response:', response)
+    return response.content
