@@ -22,8 +22,20 @@ def index():
 
 @app.route('/speech-to-text', methods=['POST'])
 def speech_to_text_route():
-    return None
+    print("Processing speech-to-text")
+    audio_binary = request.data # get the users speech from their request
+    text = speech_to_text(audio_binary) # call speech-to-text fucntion to transcribe the audio 
 
+    # return the response to the user in JSON format:  create a json response by using the Flask's app.response_class function and passing in three arguments:
+    response = app.response_class(
+        response = json.dumps({'text': text}),
+        status = 200,
+        mimetype= "application/json"
+    )
+
+    print(response)
+    print(response.data)
+    return response
 
 @app.route('/process-message', methods=['POST'])
 def process_message_route():
