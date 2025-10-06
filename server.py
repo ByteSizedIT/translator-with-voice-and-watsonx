@@ -1,3 +1,9 @@
+'''
+# existing local venv: source ../3-simple-chatbot/.venv/bin/activate
+# for new env: python -m venv .venv ; source .venv/bin/activate
+echo $VIRTUAL_ENV - to checkwhich venv is running
+'''
+
 import base64
 import json
 from flask import Flask, render_template, request
@@ -11,7 +17,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/', methods=['GET'])
 def index():
-    return None
+    return render_template('index.html')
 
 
 @app.route('/speech-to-text', methods=['POST'])
