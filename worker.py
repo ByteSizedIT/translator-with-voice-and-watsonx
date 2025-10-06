@@ -46,4 +46,8 @@ def text_to_speech(text, voice=""):
     return None
 
 def watsonx_process_message(user_message):
-    return None
+    # Set the prompt for watsonx api - using a strict translation instruction
+    prompt = """Respond to the user query: '''{user message}'''"""
+    response_text = model.generate_text(prompt=prompt)
+    print("Watsonx response: ", response_text)
+    return response_text.strip()
